@@ -181,12 +181,6 @@ removeZero (x:xs) = if 0 == x then removeZero xs else (x:xs)
 -- >>> bigAdd [9, 9, 9, 9] [9, 9, 9]
 -- [1, 0, 9, 9, 8]
 
-frist :: (a, b) -> a
-frist (c, d) = c
-
-second :: (a, b) -> b
-second (c, d) = d
-
 bigAdd :: BigInt -> BigInt -> BigInt
 bigAdd l1 l2     = removeZero res
   where
@@ -239,11 +233,10 @@ bigMul l1 l2 = res
 --    base     = error "TBD:bigMul:base"
 --    args     = error "TBD:bigMul:args"
 
---    f a x     = ( ((fst a) + 1), (bigAdd ((mulByDigit x l2)++(clone 0 (fst a))) (snd a)))
-    f a x     = ( next, (bigAdd ((mulByDigit x l2)++(clone 0 (fst a))) (snd a)))
+    f a x     = ( next, (bigAdd m (snd a)))
        where
           next = ((fst a) + 1)
-
+          m    = ((mulByDigit x l2) ++ (clone 0 (fst a)))
 
     base      = (0, []) 
     args      = l1
