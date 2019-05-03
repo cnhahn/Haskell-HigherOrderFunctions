@@ -205,7 +205,6 @@ bigAdd l1 l2     = removeZero res
     base         = [] 
     args         = zip l1' l2'
 
---      result   = xa + xb + carry
 
 --    base         = 0
 --    base         = (0, [])
@@ -236,11 +235,16 @@ bigMul :: BigInt -> BigInt -> BigInt
 bigMul l1 l2 = res
   where
     (_, res) = foldLeft f base args
-    f a x    = error "TBD:bigMul:f"
+--    f a x    = error "TBD:bigMul:f"
 --    base     = error "TBD:bigMul:base"
 --    args     = error "TBD:bigMul:args"
 
---    f a x    = error "TBD:bigMul:f"
-    base         = (0, []) 
-    args         = zip l1 l2
+--    f a x     = ( ((fst a) + 1), (bigAdd ((mulByDigit x l2)++(clone 0 (fst a))) (snd a)))
+    f a x     = ( next, (bigAdd ((mulByDigit x l2)++(clone 0 (fst a))) (snd a)))
+       where
+          next = ((fst a) + 1)
+
+
+    base      = (0, []) 
+    args      = l1
 
