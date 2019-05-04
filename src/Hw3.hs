@@ -76,7 +76,7 @@ pipe :: [(a -> a)] -> (a -> a)
 pipe fs   = foldLeft f base fs
   where
     f a x fn = a (x fn)
-    base fb = fb
+    base fb  = fb
 --    f a x = error "TBD: pipe: f"
 --    base  = error "TBD: pipe: base"
 
@@ -151,7 +151,12 @@ type BigInt = [Int]
 -- [1,0,0,2] [0,0,9,9]
 
 padZero :: BigInt -> BigInt -> (BigInt, BigInt)
-padZero l1 l2 = if (length l1 > length l2) then padZero l1 (0:l2) else if (length l1 < length l2) then padZero (0:l1) l2 else (l1, l2)
+padZero l1 l2 = if (length l1 > length l2) then (l1, (clone 0 m) ++ l2) else if (length l1 < length l2) then ((clone 0 n) ++ l1, l2) else (l1, l2)
+   where
+      n = length l2 - length l1
+      m = length l1 - length l2
+
+--padZero l1 l2 = if (length l1 > length l2) then padZero l1 (0:l2) else if (length l1 < length l2) then padZero (0:l1) l2 else (l1, l2)
 --padZero l1 l2 = error "TBD:padZero"
 
 --------------------------------------------------------------------------------
