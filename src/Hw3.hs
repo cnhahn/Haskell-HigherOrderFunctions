@@ -238,10 +238,15 @@ bigMul l1 l2 = res
 --    base     = error "TBD:bigMul:base"
 --    args     = error "TBD:bigMul:args"
 
-    f a x     = ( next, (bigAdd m (snd a)))
+    f a x     = ( next, ( bigAdd m ((snd a)++ (clone 0 1)) ) )
        where
           next = ((fst a) + 1)
-          m    = ((mulByDigit x l2) ++ (clone 0 (fst a)))
+          m    = ((mulByDigit (x) l2))
+
+--    f a x     = ( next, (bigAdd m (snd a)))
+--       where
+--          next = ((fst a) + 1)
+--          m    = ((mulByDigit x l2) ++ (clone 0 (fst a)))
 
     base      = (0, []) 
     args      = l1
